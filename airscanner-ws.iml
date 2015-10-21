@@ -145,5 +145,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.grizzly:grizzly-http-servlet:2.3.23" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.grizzly:grizzly-http:2.3.23" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.grizzly:grizzly-framework:2.3.23" level="project" />
+    <orderEntry type="library" exported="" name="com.sun.jersey:jersey-client:1.19" level="project" />
   </component>
 </module>

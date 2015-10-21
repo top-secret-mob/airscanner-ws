@@ -1,21 +1,21 @@
 package com.mobica.airscannerws.resources;
 
-import com.codahale.metrics.annotation.Timed;
-import com.mobica.airscannerws.api.RegistrationConfirmation;
-import com.mobica.airscannerws.api.Saying;
-import com.google.common.base.Optional;
-import io.dropwizard.jersey.caching.CacheControl;
-import io.dropwizard.jersey.params.DateTimeParam;
+import com.google.common.base.Strings;
+import com.mobica.airscannerws.api.RegisterRequest;
+import com.mobica.airscannerws.api.Response;
+import com.mobica.airscannerws.core.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
-import javax.ws.rs.*;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Path("/hello-world")
+@Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
 public class AirscannerResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(AirscannerResource.class);
@@ -28,29 +28,20 @@ public class AirscannerResource {
         this.counter = new AtomicLong();
     }
 
-    @GET
-    @Timed(name = "get-requests")
-    @CacheControl(maxAge = 1, maxAgeUnit = TimeUnit.DAYS)
-    public RegistrationConfirmation sayHello(@QueryParam("name") Optional<String> name) {
-        return new RegistrationConfirmation(RegistrationConfirmation.Status.success);
-    }
-
     @POST
-    public void receiveHello(@Valid Saying saying) {
-        LOGGER.info("Received a saying: {}", saying);
-    }
-
-    @GET
-    @Path("/date")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String receiveDate(@QueryParam("date") Optional<DateTimeParam> dateTimeParam) {
-        if (dateTimeParam.isPresent()) {
-            final DateTimeParam actualDateTimeParam = dateTimeParam.get();
-            LOGGER.info("Received a date: {}", actualDateTimeParam);
-            return actualDateTimeParam.get().toString();
-        } else {
-            LOGGER.warn("No received date");
-            return null;
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response receiveRegisterRequest(@Valid @NotNull RegisterRequest user) {
+        LOGGER.info("Received register request: {}", user);
+        if (Strings.isNullOrEmpty(user.getAddress())) {
+            return new Response(Response.Status.error, "address must be specified");
         }
+
+        if (Strings.isNullOrEmpty(user.getGcmRegId())) {
+            return new Response(Response.Status.error, "gcmRegId must be specified");
+        }
+
+        Users.getInstance().addUser(user.getAddress(), user.getGcmRegId());
+
+        return new Response(Response.Status.success);
     }
 }
