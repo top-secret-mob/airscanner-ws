@@ -6,41 +6,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class AirscannerConfiguration extends Configuration {
     @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
-
-    @NotEmpty
-    private String gcmAppToken;
+    private String gcm_server;
 
     @JsonProperty
-    public String getTemplate() {
-        return template;
+    public String getGcm_server() {
+        return gcm_server;
     }
 
     @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String defaultName) {
-        this.defaultName = defaultName;
-    }
-
-    @JsonProperty
-    public String getGcmAppToken() {
-        return gcmAppToken;
-    }
-
-    @JsonProperty
-    public void setGcmAppToken(String gcmAppToken) {
-        this.gcmAppToken = gcmAppToken;
+    public void setGcm_server(String gcm_server) {
+        this.gcm_server = gcm_server;
     }
 }

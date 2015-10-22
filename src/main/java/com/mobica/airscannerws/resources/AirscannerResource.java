@@ -13,19 +13,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
 public class AirscannerResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(AirscannerResource.class);
 
-    private final String defaultValue;
-    private final AtomicLong counter;
-
-    public AirscannerResource(String defaultValue) {
-        this.defaultValue = defaultValue;
-        this.counter = new AtomicLong();
+    public AirscannerResource() {
     }
 
     @POST

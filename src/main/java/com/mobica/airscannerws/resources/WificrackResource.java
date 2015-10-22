@@ -1,22 +1,19 @@
 package com.mobica.airscannerws.resources;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.google.common.base.Strings;
-import com.mobica.airscannerws.api.GcmMessage;
-import com.mobica.airscannerws.api.GcmRequest;
-import com.mobica.airscannerws.api.GcmUpstreamRequest;
-import com.mobica.airscannerws.api.Response;
+import com.mobica.airscannerws.api.*;
 import com.mobica.airscannerws.core.User;
 import com.mobica.airscannerws.core.Users;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.core.impl.provider.entity.StringProvider;
-import org.glassfish.jersey.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,22 +23,16 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class WificrackResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(WificrackResource.class);
-    private static final String GCM_SERVER = "https://gcm-http.googleapis.com/gcm/send";
+    private final String gcmServer;
 
-    private final String gcmToken;
-
-    public WificrackResource(String gcmToken) {
-        this.gcmToken = gcmToken;
+    public WificrackResource(String gcmServer) {
+        this.gcmServer = gcmServer;
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response receiveGcmRequest(@Valid GcmRequest request) {
+    public Response receiveGcmRequest(@Valid @NotNull GcmRequest request) {
         LOGGER.info("Received a request: {}", request);
-
-        if (Strings.isNullOrEmpty(request.getAddress())) {
-            return new Response(Response.Status.error, "address must be specified");
-        }
 
         final User user = Users.getInstance().getUser(request.getAddress());
         if (user == null) {
@@ -49,23 +40,50 @@ public class WificrackResource {
         }
 
         ClientConfig cc = new DefaultClientConfig();
-//        cc.getClasses().add(JacksonJsonProvider.class);
+        cc.getClasses().clear();
+        cc.getClasses().add(JacksonJsonProvider.class);
         cc.getClasses().add(StringProvider.class);
-        final Client client = Client.create();
-try {
+        final Client client = Client.create(cc);
 
-    final GcmUpstreamRequest gcmMsg =
-            new GcmUpstreamRequest(new String[]{user.gcmId}, new GcmMessage());
+        final GcmUpstreamRequest gcmMsg =
+                new GcmUpstreamRequest(new String[]{user.gcmId}, request.getData());
 
-    client.resource(GCM_SERVER)
-            .accept(MediaType.APPLICATION_JSON_TYPE)
-            .type(MediaType.APPLICATION_JSON_TYPE)
-            .header("Authorization", "key=" + gcmToken)
-            .post(gcmMsg);
-//    response.bufferEntity();
-}catch (Exception ex) {
-    ex.printStackTrace();
-}
-        return new Response(Response.Status.success, "");
+        try {
+            final ClientResponse response = client.resource(gcmServer)
+                    .accept(MediaType.APPLICATION_JSON_TYPE)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .header("Authorization", "key=" + request.getGcm_token())
+                    .post(ClientResponse.class, gcmMsg);
+
+            if (response == null) {
+                LOGGER.error("Received a null response");
+                return new Response(Response.Status.error, "Unrecognized response");
+            }
+
+            response.bufferEntity();
+            final GcmResponse gcmResponse;
+            try {
+                gcmResponse = response.getEntity(GcmResponse.class);
+            } catch (Exception ex) {
+                return new Response(Response.Status.error, "Failed to parse JSON response from GCM");
+            }
+
+            LOGGER.info("Response: {}", gcmResponse);
+
+            if (gcmResponse.getSuccess() > 0 && gcmResponse.getFailure() == 0) {
+                return new Response(Response.Status.success);
+            }
+
+            final GcmResult[] results = gcmResponse.getResults();
+            if (results != null && results.length > 0) {
+                return new Response(Response.Status.error, results[0].getError());
+            }
+
+            return new Response(Response.Status.error, "Unrecognized response");
+
+        } catch (Exception ex) {
+            LOGGER.error("Internal error", ex);
+            return new Response(Response.Status.error, "WS internal error");
+        }
     }
 }

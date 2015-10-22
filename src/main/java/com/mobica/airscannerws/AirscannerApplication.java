@@ -22,7 +22,7 @@ public class AirscannerApplication extends Application<AirscannerConfiguration> 
 
     @Override
     public void run(AirscannerConfiguration configuration, Environment environment) {
-        environment.jersey().register(new AirscannerResource(configuration.getDefaultName()));
-        environment.jersey().register(new WificrackResource(configuration.getGcmAppToken()));
+        environment.jersey().register(new AirscannerResource());
+        environment.jersey().register(new WificrackResource(configuration.getGcm_server()));
     }
 }
