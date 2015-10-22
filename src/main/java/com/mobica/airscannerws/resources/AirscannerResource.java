@@ -1,9 +1,8 @@
 package com.mobica.airscannerws.resources;
 
-import com.google.common.base.Strings;
 import com.mobica.airscannerws.api.RegisterRequest;
 import com.mobica.airscannerws.api.Response;
-import com.mobica.airscannerws.core.Users;
+import com.mobica.airscannerws.core.StationsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,15 +25,8 @@ public class AirscannerResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response receiveRegisterRequest(@Valid @NotNull RegisterRequest user) {
         LOGGER.info("Received register request: {}", user);
-        if (Strings.isNullOrEmpty(user.getAddress())) {
-            return new Response(Response.Status.error, "address must be specified");
-        }
 
-        if (Strings.isNullOrEmpty(user.getGcmRegId())) {
-            return new Response(Response.Status.error, "gcmRegId must be specified");
-        }
-
-        Users.getInstance().addUser(user.getAddress(), user.getGcmRegId());
+        StationsManager.updateStationToken(user.getAddress(), user.getGcmRegId());
 
         return new Response(Response.Status.success);
     }

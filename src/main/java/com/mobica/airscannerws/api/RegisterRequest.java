@@ -2,12 +2,15 @@ package com.mobica.airscannerws.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by wojtek on 21.10.15.
  */
 public class RegisterRequest {
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String gcmRegId;
 
     public RegisterRequest() {

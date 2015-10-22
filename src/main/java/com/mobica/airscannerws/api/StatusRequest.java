@@ -1,31 +1,21 @@
 package com.mobica.airscannerws.api;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class GcmRequest {
-    @NotEmpty
-    private String gcm_token;
+public class StatusRequest {
     @NotEmpty
     private String address;
-    private GcmMessage data;
+    private boolean online;
 
-    public GcmRequest() {
+    public StatusRequest() {
         // Jackson deserialization
     }
 
-    public GcmRequest(String gcm_token, String address, GcmMessage data) {
-        this.gcm_token = gcm_token;
+    public StatusRequest(String address, boolean online) {
         this.address = address;
-        this.data = data;
-    }
-
-
-    @JsonProperty
-    public String getGcm_token() {
-        return gcm_token;
+        this.online = online;
     }
 
     @JsonProperty
@@ -34,17 +24,15 @@ public class GcmRequest {
     }
 
     @JsonProperty
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public GcmMessage getData() {
-        return data;
+    public boolean isOnline() {
+        return online;
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("gcm_token", gcm_token)
                 .add("address", address)
-                .add("data", data)
+                .add("online", online)
                 .toString();
     }
 }
