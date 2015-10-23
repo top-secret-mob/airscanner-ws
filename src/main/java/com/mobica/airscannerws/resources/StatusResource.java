@@ -15,10 +15,10 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/status")
 @Produces(MediaType.APPLICATION_JSON)
-public class WificrackResource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WificrackResource.class);
+public class StatusResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatusResource.class);
 
-    public WificrackResource() {
+    public StatusResource() {
     }
 
     @POST
@@ -27,6 +27,17 @@ public class WificrackResource {
         LOGGER.info("Received status request: {}", request);
 
         StationsManager.updateConnectedState(request.getAddress(), request.isOnline());
+
+        return new Response(Response.Status.success);
+    }
+
+    @POST
+    @Path("/reset")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response receiveResetRequest() {
+        LOGGER.info("Received reset request");
+
+        StationsManager.resetConnectionStates();
 
         return new Response(Response.Status.success);
     }

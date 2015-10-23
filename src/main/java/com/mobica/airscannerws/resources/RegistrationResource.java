@@ -15,10 +15,10 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
-public class AirscannerResource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AirscannerResource.class);
+public class RegistrationResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationResource.class);
 
-    public AirscannerResource() {
+    public RegistrationResource() {
     }
 
     @POST

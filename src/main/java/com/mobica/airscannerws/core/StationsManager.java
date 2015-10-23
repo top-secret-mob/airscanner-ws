@@ -44,7 +44,7 @@ public class StationsManager {
             dao.updateStation(station);
         }
 
-        sendGcmMessage(station);
+        sendGcmMessage(station, false);
     }
 
     public static synchronized void updateConnectedState(String address, boolean connected) {
@@ -59,11 +59,18 @@ public class StationsManager {
         }
 
         if (!Strings.isNullOrEmpty(station.getGcmId())) {
-            sendGcmMessage(station);
+            sendGcmMessage(station, true);
         }
     }
 
-    private static void sendGcmMessage(Station station) {
+    public static synchronized void resetConnectionStates() {
+        for (Station station : dao.getStations()) {
+            station.setOnline(false);
+            dao.updateStation(station);
+        }
+    }
+
+    private static void sendGcmMessage(Station station, boolean statusChanged) {
         ClientConfig cc = new DefaultClientConfig();
         cc.getClasses().clear();
         cc.getClasses().add(JacksonJsonProvider.class);
@@ -72,7 +79,7 @@ public class StationsManager {
 
         final GcmUpstreamRequest gcmMsg =
                 new GcmUpstreamRequest(new String[]{station.getGcmId()},
-                        new GcmMessage(station.isOnline()));
+                        new GcmMessage(station.isOnline(), statusChanged));
 
         LOGGER.info("Sending GCM message: " + gcmMsg);
 

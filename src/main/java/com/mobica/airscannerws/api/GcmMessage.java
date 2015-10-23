@@ -7,12 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class GcmMessage {
     private boolean bt_enabled;
+    private boolean status_change;
 
     public GcmMessage() {
     }
 
-    public GcmMessage(boolean bt_enabled) {
+    public GcmMessage(boolean bt_enabled, boolean status_change) {
         this.bt_enabled = bt_enabled;
+        this.status_change = status_change;
     }
 
     @JsonProperty
@@ -20,10 +22,16 @@ public class GcmMessage {
         return bt_enabled;
     }
 
+    @JsonProperty
+    public boolean isStatus_change() {
+        return status_change;
+    }
+
     @Override
     public String toString() {
         return "GcmMessage{" +
-                "bt_enabled='" + bt_enabled + '\'' +
+                "bt_enabled=" + bt_enabled +
+                ", status_change=" + status_change +
                 '}';
     }
 }
