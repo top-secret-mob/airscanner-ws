@@ -23,7 +23,8 @@ public class AirscannerApplication extends Application<AirscannerConfiguration> 
 
     @Override
     public void run(AirscannerConfiguration configuration, Environment environment) {
-        StationsManager.init(configuration.getGcm_server(), configuration.getGcm_api_token());
+        StationsManager.init(configuration.getGcm_server(), configuration.getGcm_api_token(),
+                configuration.getStation_ttl());
         environment.jersey().register(new RegistrationResource());
         environment.jersey().register(new StatusResource());
     }

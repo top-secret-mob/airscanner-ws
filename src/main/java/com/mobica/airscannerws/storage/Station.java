@@ -9,7 +9,10 @@ public class Station {
     // gcm registration id
     private String gcmId;
     // if detected by wifi scanner
-    private boolean online;
+    private boolean inRange;
+    // last status update time
+    private long lastUpdateTime;
+
 
     public Station(String address) {
         this.address = address;
@@ -27,11 +30,19 @@ public class Station {
         this.gcmId = gcmId;
     }
 
-    public boolean isOnline() {
-        return online;
+    public boolean isInRange() {
+        return inRange;
     }
 
-    public void setOnline(boolean online) {
-        this.online = online;
+    public void setInRange(boolean online) {
+        this.inRange = online;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 }

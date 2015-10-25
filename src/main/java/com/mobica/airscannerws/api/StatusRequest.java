@@ -1,38 +1,29 @@
 package com.mobica.airscannerws.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import java.util.Arrays;
 
 public class StatusRequest {
-    @NotEmpty
-    private String address;
-    private boolean online;
+    private String[] discovered;
 
     public StatusRequest() {
         // Jackson deserialization
     }
 
-    public StatusRequest(String address, boolean online) {
-        this.address = address;
-        this.online = online;
+    public StatusRequest(String[] discovered) {
+        this.discovered = discovered;
     }
 
     @JsonProperty
-    public String getAddress() {
-        return address;
-    }
-
-    @JsonProperty
-    public boolean isOnline() {
-        return online;
+    public String[] getDiscovered() {
+        return discovered;
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("address", address)
-                .add("online", online)
-                .toString();
+        return "StatusRequest{" +
+                "discovered=" + Arrays.toString(discovered) +
+                '}';
     }
 }

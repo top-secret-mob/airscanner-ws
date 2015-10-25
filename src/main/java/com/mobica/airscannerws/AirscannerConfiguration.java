@@ -9,6 +9,7 @@ public class AirscannerConfiguration extends Configuration {
     private String gcm_server;
     @NotEmpty
     private String gcm_api_token;
+    private long station_ttl;
 
     @JsonProperty
     public String getGcm_server() {
@@ -28,5 +29,15 @@ public class AirscannerConfiguration extends Configuration {
     @JsonProperty
     public void setGcm_api_token(String gcm_api_token) {
         this.gcm_api_token = gcm_api_token;
+    }
+
+    @JsonProperty
+    public long getStation_ttl() {
+        return station_ttl;
+    }
+
+    @JsonProperty
+    public void setStation_ttl(long station_ttl) {
+        this.station_ttl = station_ttl;
     }
 }

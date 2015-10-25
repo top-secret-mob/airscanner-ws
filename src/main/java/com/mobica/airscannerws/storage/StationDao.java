@@ -11,6 +11,8 @@ public interface StationDao {
 
     List<Station> getStations();
 
+    List<Station> getStations(long minLastUpdateTime);
+
     void updateStation(Station station);
 
     void addStation(Station station);

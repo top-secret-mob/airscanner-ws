@@ -1,6 +1,7 @@
 gcm_server: https://gcm-http.googleapis.com/gcm/send
 #gcm_server: http://requestb.in/1dg1ggp1
 gcm_api_token: abc
+station_ttl: 30000
 
 # use the simple server factory if you only want to run on a single port
 #server:
