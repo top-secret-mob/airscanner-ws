@@ -7,19 +7,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Created by wojtek on 21.10.15.
  */
-public class RegisterRequest {
+public class DiscoveryRegisterRequest {
     @NotEmpty
     private String address;
-    @NotEmpty
-    private String gcmRegId;
 
-    public RegisterRequest() {
+    public DiscoveryRegisterRequest() {
         // Jackson deserialization
     }
 
-    public RegisterRequest(String address, String gcmRegId) {
+    public DiscoveryRegisterRequest(String address) {
         this.address = address;
-        this.gcmRegId = gcmRegId;
     }
 
     @JsonProperty
@@ -27,16 +24,10 @@ public class RegisterRequest {
         return address;
     }
 
-    @JsonProperty
-    public String getGcmRegId() {
-        return gcmRegId;
-    }
-
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("address", address)
-                .add("gcmRegId", gcmRegId)
                 .toString();
     }
 }

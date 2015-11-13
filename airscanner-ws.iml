@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="airscanner-ws" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="com.mobica" external.system.module.version="0.9.0-rc5-SNAPSHOT" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="airscanner-ws" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="com.mobica" external.system.module.version="0.9.0-rc6-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/classes/main" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
@@ -14,25 +14,26 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-core:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-auth:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-assets:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-spdy:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-hibernate:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-migrations:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-views-freemarker:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-views-mustache:0.9.0-rc5-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-core:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-auth:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-assets:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-spdy:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-hibernate:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-migrations:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-views-freemarker:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-views-mustache:0.9.0-rc6-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.h2database:h2:1.4.190" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-util:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-jackson:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-validation:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-configuration:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-logging:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-metrics:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-jersey:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-servlets:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-jetty:0.9.0-rc5-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-lifecycle:0.9.0-rc5-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.sun.jersey:jersey-client:1.19" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-util:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-jackson:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-validation:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-configuration:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-logging:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-metrics:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-jersey:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-servlets:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-jetty:0.9.0-rc6-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-lifecycle:0.9.0-rc6-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: io.dropwizard.metrics:metrics-jvm:3.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: io.dropwizard.metrics:metrics-servlets:3.1.2" level="project" />
@@ -41,19 +42,20 @@
     <orderEntry type="library" exported="" name="Gradle: org.eclipse.jetty.toolchain.setuid:jetty-setuid-java:1.0.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.eclipse.jetty.spdy:spdy-http-server:9.2.13.v20150730" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.eclipse.jetty:jetty-alpn-server:9.2.13.v20150730" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-db:0.9.0-rc5-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-db:0.9.0-rc6-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:2.6.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jadira.usertype:usertype.core:4.0.0.GA" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.hibernate:hibernate-core:4.3.11.Final" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.liquibase:liquibase-core:3.4.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.mattbertolini:liquibase-slf4j:1.2.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-views:0.9.0-rc5-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.dropwizard:dropwizard-views:0.9.0-rc6-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.freemarker:freemarker:2.3.23" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.github.spullara.mustache.java:compiler:0.8.17" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.sun.jersey:jersey-core:1.19" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: joda-time:joda-time:2.8.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: joda-time:joda-time:2.9" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk7:2.6.3" level="project" />
@@ -100,6 +102,7 @@
     <orderEntry type="library" exported="" name="Gradle: org.javassist:javassist:3.18.1-GA" level="project" />
     <orderEntry type="library" exported="" name="Gradle: antlr:antlr:2.7.7" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jboss:jandex:1.1.0.Final" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: javax.ws.rs:jsr311-api:1.1.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.fasterxml:classmate:1.1.0" level="project" />
@@ -129,7 +132,7 @@
     <orderEntry type="library" exported="" name="Gradle: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b31" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.eclipse.jetty:jetty-alpn-client:9.2.13.v20150730" level="project" />
     <orderEntry type="library" exported="" name="Gradle: javax.inject:javax.inject:1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: io.dropwizard:dropwizard-testing:0.9.0-rc5-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: io.dropwizard:dropwizard-testing:0.9.0-rc6-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-inmemory:2.22.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
@@ -145,26 +148,5 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.grizzly:grizzly-http-servlet:2.3.23" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.grizzly:grizzly-http:2.3.23" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.grizzly:grizzly-framework:2.3.23" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.sun.jersey:jersey-client:1.19" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.sun.jersey:jersey-core:1.19" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: javax.ws.rs:jsr311-api:1.1.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.core:jersey-server:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.core:jersey-client:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.containers:jersey-container-servlet-core:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.core:jersey-common:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.media:jersey-media-jaxb:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: javax.annotation:javax.annotation-api:1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.hk2:hk2-api:2.4.0-b31" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.hk2.external:javax.inject:2.4.0-b31" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.hk2:hk2-locator:2.4.0-b31" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: javax.validation:validation-api:1.1.0.Final" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.containers:jersey-container-servlet:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jersey.bundles.repackaged:jersey-guava:2.22.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.hk2:osgi-resource-locator:1.0.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.hk2:hk2-utils:2.4.0-b31" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b31" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.javassist:javassist:3.18.1-GA" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1" level="project" />
   </component>
 </module>

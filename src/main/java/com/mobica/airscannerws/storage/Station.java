@@ -10,6 +10,8 @@ public class Station {
     private String gcmId;
     // if detected by wifi scanner
     private boolean inRange;
+    // if detecting is enabled
+    private boolean discoveryEnabled;
     // last status update time
     private long lastUpdateTime;
 
@@ -44,5 +46,13 @@ public class Station {
 
     public void setLastUpdateTime(long lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public boolean isDiscoveryEnabled() {
+        return discoveryEnabled;
+    }
+
+    public void setDiscoveryEnabled(boolean discoveryEnabled) {
+        this.discoveryEnabled = discoveryEnabled;
     }
 }

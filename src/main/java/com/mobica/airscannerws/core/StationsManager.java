@@ -1,10 +1,7 @@
 package com.mobica.airscannerws.core;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.mobica.airscannerws.api.GcmMessage;
 import com.mobica.airscannerws.api.GcmResponse;
 import com.mobica.airscannerws.api.GcmUpstreamRequest;
@@ -19,7 +16,6 @@ import com.sun.jersey.core.impl.provider.entity.StringProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,8 +62,45 @@ public class StationsManager {
         }
 
         LOGGER.info("Station token updated {} {}", station.getAddress(), new Date(station.getLastUpdateTime()));
+    }
 
+    public static synchronized boolean registerForDiscovery(String address) {
+        Station station = dao.getStation(address);
+        if (station == null) {
+            // user not registered
+            return false;
+        }
+
+        station.setDiscoveryEnabled(true);
+        station.setLastUpdateTime(System.currentTimeMillis());
+        dao.updateStation(station);
         sendGcmMessage(station, false);
+
+        return true;
+    }
+
+    public static synchronized boolean unregisterFromDiscovery(String address) {
+        Station station = dao.getStation(address);
+        if (station == null) {
+            // user not registered
+            return false;
+        }
+
+        station.setDiscoveryEnabled(false);
+        station.setLastUpdateTime(System.currentTimeMillis());
+        dao.updateStation(station);
+        return true;
+    }
+
+    public static synchronized void removeStationToken(String address) {
+        Station station = dao.getStation(address);
+        if (station != null) {
+            station.setGcmId(null);
+            station.setLastUpdateTime(System.currentTimeMillis());
+            dao.updateStation(station);
+
+            LOGGER.info("Station token removed {} {}", station.getAddress(), new Date(station.getLastUpdateTime()));
+        }
     }
 
     public static synchronized List<String> updateConnectedState(String[] detected) {
@@ -81,7 +114,10 @@ public class StationsManager {
 
                     if (!station.isInRange()) {
                         station.setInRange(true);
-                        sendGcmMessage(station, true);
+
+                        if (station.isDiscoveryEnabled()) {
+                            sendGcmMessage(station, true);
+                        }
                     }
                 }
 
@@ -112,7 +148,10 @@ public class StationsManager {
 
                 station.setInRange(false);
                 dao.updateStation(station);
-                sendGcmMessage(station, true);
+
+                if (station.isDiscoveryEnabled()) {
+                    sendGcmMessage(station, true);
+                }
             }
         }
     }
@@ -126,7 +165,7 @@ public class StationsManager {
 
         final GcmUpstreamRequest gcmMsg =
                 new GcmUpstreamRequest(new String[]{station.getGcmId()},
-                        new GcmMessage(station.isInRange(), statusChanged));
+                        new GcmMessage(GcmMessage.Type.discovery_status, station.isInRange(), statusChanged));
 
         LOGGER.info("Sending GCM message: " + gcmMsg);
 
