@@ -1,8 +1,10 @@
 package com.mobica.airscannerws;
 
 import com.mobica.airscannerws.core.StationsManager;
+import com.mobica.airscannerws.resources.DiscoverySubscriptionResource;
+import com.mobica.airscannerws.resources.GeofenceResource;
 import com.mobica.airscannerws.resources.RegistrationResource;
-import com.mobica.airscannerws.resources.StatusResource;
+import com.mobica.airscannerws.resources.DiscoveryResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -26,6 +28,8 @@ public class AirscannerApplication extends Application<AirscannerConfiguration> 
         StationsManager.init(configuration.getGcm_server(), configuration.getGcm_api_token(),
                 configuration.getStation_ttl());
         environment.jersey().register(new RegistrationResource());
-        environment.jersey().register(new StatusResource());
+        environment.jersey().register(new DiscoverySubscriptionResource());
+        environment.jersey().register(new DiscoveryResource());
+        environment.jersey().register(new GeofenceResource());
     }
 }

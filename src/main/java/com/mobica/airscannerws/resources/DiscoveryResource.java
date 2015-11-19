@@ -20,15 +20,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/status")
+@Path("/discovery")
 @Produces(MediaType.APPLICATION_JSON)
-public class StatusResource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusResource.class);
+public class DiscoveryResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiscoveryResource.class);
 
-    public StatusResource() {
+    public DiscoveryResource() {
     }
 
     @POST
+    @Path("/detected")
     @Produces(MediaType.APPLICATION_JSON)
     public StatusResponse receiveStatusRequest(@Valid @NotNull StatusRequest request) {
         LOGGER.info("Received status request: {}", request);

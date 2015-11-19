@@ -7,7 +7,9 @@ import java.util.List;
  */
 public interface StationDao {
 
-    Station getStation(String address);
+    Station getStationByAddress(String address);
+
+    Station getStationByToken(String token);
 
     List<Station> getStations();
 

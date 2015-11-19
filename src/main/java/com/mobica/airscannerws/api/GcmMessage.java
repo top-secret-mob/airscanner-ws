@@ -13,22 +13,22 @@ public class GcmMessage {
         discovery_status
     }
 
-    private Type message_type;
+    private Type message_id;
     private boolean in_range;
     private boolean status_change;
 
     public GcmMessage() {
     }
 
-    public GcmMessage(Type messageType, boolean in_range, boolean status_change) {
-        this.message_type = messageType;
+    public GcmMessage(Type messageId, boolean in_range, boolean status_change) {
+        this.message_id = messageId;
         this.in_range = in_range;
         this.status_change = status_change;
     }
 
-    @JsonProperty("message_type")
-    public Type getMessageType() {
-        return message_type;
+    @JsonProperty("message_id")
+    public Type getMessageId() {
+        return message_id;
     }
 
     @JsonProperty("in_range")
@@ -43,8 +43,8 @@ public class GcmMessage {
 
     @Override
     public String toString() {
-        return "GcmMessage{" +
-                "message_type=" + message_type +
+        return "message_id{" +
+                "message_type=" + message_id +
                 ", in_range=" + in_range +
                 ", status_change=" + status_change +
                 '}';

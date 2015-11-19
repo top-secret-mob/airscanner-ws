@@ -9,7 +9,7 @@ public class StatusResponse extends Response {
     private String[] active;
 
     public StatusResponse() {
-        super(Status.success);
+
     }
 
     /**
@@ -18,7 +18,6 @@ public class StatusResponse extends Response {
      * @param active
      */
     public StatusResponse(String[] active) {
-        super(Status.success);
         this.active = active;
     }
 

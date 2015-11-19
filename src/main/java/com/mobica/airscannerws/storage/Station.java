@@ -6,6 +6,8 @@ package com.mobica.airscannerws.storage;
 public class Station {
     // MAC address
     private final String address;
+    // auth token
+    private final String authToken;
     // gcm registration id
     private String gcmId;
     // if detected by wifi scanner
@@ -15,13 +17,17 @@ public class Station {
     // last status update time
     private long lastUpdateTime;
 
-
-    public Station(String address) {
+    public Station(String address, String authToken) {
         this.address = address;
+        this.authToken = authToken;
     }
 
     public String getAddress() {
         return address;
+    }
+
+    public String getAuthToken() {
+        return authToken;
     }
 
     public String getGcmId() {

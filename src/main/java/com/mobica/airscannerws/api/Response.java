@@ -31,6 +31,7 @@ public class Response {
     }
 
     @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Status getStatus() {
         return status;
     }

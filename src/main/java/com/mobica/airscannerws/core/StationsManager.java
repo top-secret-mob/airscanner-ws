@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -48,25 +49,52 @@ public class StationsManager {
         }, 0, 10, TimeUnit.SECONDS);
     }
 
-    public static synchronized void updateStationToken(String address, String token) {
-        Station station = dao.getStation(address);
+    public static synchronized String registerStationToken(String address, String gcmToken) {
+        final String authToken = UUID.randomUUID().toString();
+        Station station = dao.getStationByAddress(address);
         if (station == null) {
-            station = new Station(address);
-            station.setGcmId(token);
+            station = new Station(address, authToken);
+            station.setGcmId(gcmToken);
             station.setLastUpdateTime(System.currentTimeMillis());
             dao.addStation(station);
         } else {
-            station.setGcmId(token);
+            station.setGcmId(gcmToken);
             station.setLastUpdateTime(System.currentTimeMillis());
             dao.updateStation(station);
         }
 
         LOGGER.info("Station token updated {} {}", station.getAddress(), new Date(station.getLastUpdateTime()));
+        return station.getAuthToken();
     }
 
-    public static synchronized boolean registerForDiscovery(String address) {
-        Station station = dao.getStation(address);
-        if (station == null) {
+    public static synchronized void removeStationToken(String authToken) {
+        Station station = dao.getStationByToken(authToken);
+        if (station != null) {
+            station.setGcmId(null);
+            station.setLastUpdateTime(System.currentTimeMillis());
+            dao.updateStation(station);
+
+            LOGGER.info("Station token removed {} {}", station.getAddress(), new Date(station.getLastUpdateTime()));
+        }
+    }
+
+    public static synchronized boolean isRegistered(String authToken) {
+        Station station = dao.getStationByToken(authToken);
+        return station != null && !Strings.isNullOrEmpty(station.getGcmId());
+    }
+
+    public static synchronized String getStationAddress(String authToken) {
+        Station station = dao.getStationByToken(authToken);
+        if (station != null) {
+            return station.getAddress();
+        }
+
+        return null;
+    }
+
+    public static synchronized boolean subscribeForDiscovery(String authToken) {
+        Station station = dao.getStationByToken(authToken);
+        if (station == null || Strings.isNullOrEmpty(station.getGcmId())) {
             // user not registered
             return false;
         }
@@ -79,10 +107,15 @@ public class StationsManager {
         return true;
     }
 
-    public static synchronized boolean unregisterFromDiscovery(String address) {
-        Station station = dao.getStation(address);
+    public static synchronized boolean unsubscribeFromDiscovery(String authToken) {
+        Station station = dao.getStationByToken(authToken);
         if (station == null) {
             // user not registered
+            return false;
+        }
+
+        if (!station.isDiscoveryEnabled()) {
+            // not subscribed for discovery
             return false;
         }
 
@@ -92,22 +125,11 @@ public class StationsManager {
         return true;
     }
 
-    public static synchronized void removeStationToken(String address) {
-        Station station = dao.getStation(address);
-        if (station != null) {
-            station.setGcmId(null);
-            station.setLastUpdateTime(System.currentTimeMillis());
-            dao.updateStation(station);
-
-            LOGGER.info("Station token removed {} {}", station.getAddress(), new Date(station.getLastUpdateTime()));
-        }
-    }
-
     public static synchronized List<String> updateConnectedState(String[] detected) {
         final List<String> active = new ArrayList<>();
 
         for (String activeAddress : detected) {
-            final Station station = dao.getStation(activeAddress);
+            final Station station = dao.getStationByAddress(activeAddress);
             if (station != null) {
                 if (!Strings.isNullOrEmpty(station.getGcmId())) {
                     active.add(activeAddress);

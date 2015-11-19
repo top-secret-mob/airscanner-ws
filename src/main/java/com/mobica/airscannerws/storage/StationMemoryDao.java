@@ -3,7 +3,6 @@ package com.mobica.airscannerws.storage;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,8 +15,19 @@ public class StationMemoryDao implements StationDao {
     private final Map<String, Station> storage = new ConcurrentHashMap<>();
 
     @Override
-    public Station getStation(String address) {
+    public Station getStationByAddress(String address) {
         return storage.get(address);
+    }
+
+    @Override
+    public Station getStationByToken(String token) {
+        for (Station station : storage.values()) {
+            if (station.getAuthToken().equals(token)) {
+                return station;
+            }
+        }
+
+        return null;
     }
 
     @Override
