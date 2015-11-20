@@ -1,5 +1,8 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+plugins {
+    id 'java' // or 'groovy' Must be explicitly applied
+    id 'maven'
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
 
 group = 'com.mobica'
 version = '0.9.0-rc6-SNAPSHOT'
@@ -19,6 +22,7 @@ allprojects {
 }
 
 dependencies {
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0'
     compile group: 'io.dropwizard', name: 'dropwizard-core', version: '0.9.0-rc6-SNAPSHOT'
     compile group: 'io.dropwizard', name: 'dropwizard-auth', version: '0.9.0-rc6-SNAPSHOT'
     compile group: 'io.dropwizard', name: 'dropwizard-assets', version: '0.9.0-rc6-SNAPSHOT'
@@ -28,7 +32,6 @@ dependencies {
     compile group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: '0.9.0-rc6-SNAPSHOT'
     compile group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: '0.9.0-rc6-SNAPSHOT'
     compile group: 'com.h2database', name: 'h2', version: '1.4.190'
-    compile 'com.sun.jersey:jersey-client:1.19'
     testCompile group: 'io.dropwizard', name: 'dropwizard-testing', version: '0.9.0-rc6-SNAPSHOT'
     testCompile(group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-inmemory', version: '2.22.1') {
         exclude(module: 'javax.servlet-api')
@@ -40,12 +43,10 @@ dependencies {
     }
 }
 
-jar {
+shadowJar {
     manifest {
         attributes "Main-Class": "com.mobica.airscannerws.AirscannerApplication"
     }
 
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+    mergeServiceFiles()
 }

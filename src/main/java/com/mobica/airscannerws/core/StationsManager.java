@@ -1,6 +1,5 @@
 package com.mobica.airscannerws.core;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.base.Strings;
 import com.mobica.airscannerws.api.GcmMessage;
 import com.mobica.airscannerws.api.GcmResponse;
@@ -8,15 +7,12 @@ import com.mobica.airscannerws.api.GcmUpstreamRequest;
 import com.mobica.airscannerws.storage.Station;
 import com.mobica.airscannerws.storage.StationDao;
 import com.mobica.airscannerws.storage.StorageConnector;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.core.impl.provider.entity.StringProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -179,40 +175,23 @@ public class StationsManager {
     }
 
     private static void sendGcmMessage(Station station, boolean statusChanged) {
-        ClientConfig cc = new DefaultClientConfig();
-        cc.getClasses().clear();
-        cc.getClasses().add(JacksonJsonProvider.class);
-        cc.getClasses().add(StringProvider.class);
-        final Client client = Client.create(cc);
-
-        final GcmUpstreamRequest gcmMsg =
-                new GcmUpstreamRequest(new String[]{station.getGcmId()},
-                        new GcmMessage(GcmMessage.Type.discovery_status, station.isInRange(), statusChanged));
-
-        LOGGER.info("Sending GCM message: " + gcmMsg);
+        final Client client = ClientBuilder.newClient();
+        final WebTarget target = client.target(gcmServer);
+        final Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE)
+                .header("Authorization", "key=" + apiToken);
 
         try {
-            final ClientResponse response = client.resource(gcmServer)
-                    .accept(MediaType.APPLICATION_JSON_TYPE)
-                    .type(MediaType.APPLICATION_JSON_TYPE)
-                    .header("Authorization", "key=" + apiToken)
-                    .post(ClientResponse.class, gcmMsg);
+            final GcmUpstreamRequest gcmMsg =
+                    new GcmUpstreamRequest(new String[]{station.getGcmId()},
+                            new GcmMessage(GcmMessage.Type.discovery_status, station.isInRange(), statusChanged));
 
-            if (response == null) {
-                LOGGER.error("Received a null response");
-                return;
-            }
-
-            response.bufferEntity();
-            final GcmResponse gcmResponse;
             try {
-                gcmResponse = response.getEntity(GcmResponse.class);
+                final Response response = builder.post(Entity.json(gcmMsg));
+                final GcmResponse resp = response.readEntity(GcmResponse.class);
+                LOGGER.info("Gcm response: {}", resp);
             } catch (Exception ex) {
                 LOGGER.error("Failed to parse JSON response from GCM");
-                return;
             }
-
-            LOGGER.info("Response: {}", gcmResponse);
         } catch (Exception ex) {
             LOGGER.error("Internal error: {}", ex.getMessage());
         }
